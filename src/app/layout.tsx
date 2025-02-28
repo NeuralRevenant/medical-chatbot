@@ -1,8 +1,8 @@
-// src/app/layout.tsx
+// src/app/layout.tsx (Server Component by default)
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Medical Chatbot",
   description: "A Next.js + NextAuth + Prisma + PostgreSQL setup",
 };
@@ -14,9 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <SessionProvider>{children}</SessionProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
