@@ -1,0 +1,95 @@
+/* Reset some default styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base html styles */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+/* Body Styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  background-color: #f3f4f6; /* light gray background */
+  color: #1f2937; /* dark gray text */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: inherit;
+}
+
+/* Paragraphs */
+p {
+  margin-bottom: 1rem;
+}
+
+/* Links */
+a {
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: #287bb5;
+}
+
+/* Utility classes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Form Elements */
+input,
+textarea,
+button,
+select {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* Button Reset */
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* Basic responsive typography */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}

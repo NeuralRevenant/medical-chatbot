@@ -1,0 +1,193 @@
+@use "sass:color";
+
+/* Variables */
+$primary-color: #3b82f6;
+$secondary-color: #2563eb;
+$text-color: #f9fafb;
+$background-color: #111827;
+$box-shadow-color: rgba(0, 0, 0, 0.85);
+$border-radius: 12px;
+$transition-duration: 0.3s;
+$error-color: #f87171;
+$hover-text-color: #ffffff;
+
+/* Page Container */
+.loginPage {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+
+  animation: fadeIn 0.6s ease forwards;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* Card Container */
+.loginCard {
+  background-color: $background-color;
+  border-radius: $border-radius;
+  box-shadow: 0 0 20px $box-shadow-color;
+  padding: 3rem;
+  max-width: 500px;
+  min-height: 480px;
+  width: 90%;
+  color: $text-color;
+  text-align: center;
+  margin: auto;
+  animation: slideUp 0.7s ease forwards,
+    containerGlow 2.5s ease-in-out infinite alternate;
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Glow around the container */
+  @keyframes containerGlow {
+    0% {
+      box-shadow: 0 0 10px color.scale($primary-color, $lightness: -10%),
+        0 0 2px color.scale($primary-color, $lightness: +10%);
+    }
+    100% {
+      box-shadow: 0 0 25px color.scale($primary-color, $lightness: +20%),
+        0 0 10px color.scale($primary-color, $lightness: +25%);
+    }
+  }
+
+  /* Title */
+  .title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: $primary-color;
+    text-transform: uppercase;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 60px;
+      height: 3px;
+      background-color: $secondary-color;
+      left: 50%;
+      bottom: -8px;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.2rem; /* vertical spacing */
+
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+
+      label {
+        font-size: 0.95rem;
+        margin-bottom: 0.4rem;
+      }
+
+      input {
+        padding: 0.8rem;
+        border: 1px solid $primary-color;
+        border-radius: $border-radius;
+        background-color: color.scale($background-color, $lightness: -10%);
+        color: $text-color;
+        transition: border-color $transition-duration ease,
+          box-shadow $transition-duration ease;
+
+        &:focus {
+          outline: none;
+          border-color: $secondary-color;
+          box-shadow: 0 0 8px rgba($secondary-color, 0.5);
+        }
+      }
+    }
+
+    .inputGroup:last-of-type {
+      margin-bottom: 1rem;
+    }
+
+    .loginButton {
+      display: inline-block;
+      padding: 0.8rem;
+      background-color: $primary-color;
+      color: $hover-text-color;
+      border: none;
+      border-radius: $border-radius;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color $transition-duration ease,
+        box-shadow $transition-duration ease,
+        transform $transition-duration ease;
+
+      &:hover {
+        background-color: $secondary-color;
+        box-shadow: 0 0 12px rgba($secondary-color, 0.7);
+        transform: translateY(-2px);
+      }
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .errorMsg {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    color: $error-color;
+  }
+
+  .registerLink {
+    display: inline-block;
+    margin-top: 1.4rem;
+    font-size: 0.95rem;
+    color: color.scale($primary-color, $lightness: +15%);
+    text-decoration: none;
+    transition: color $transition-duration ease;
+
+    &:hover {
+      color: $hover-text-color;
+    }
+  }
+}
+
+/* Responsive text size adjustments */
+@media (max-width: 480px) {
+  .loginCard {
+    padding: 2rem;
+    min-height: 400px;
+
+    .title {
+      font-size: 1.6rem;
+    }
+
+    form {
+      row-gap: 1rem;
+      .loginButton {
+        font-size: 0.95rem;
+      }
+    }
+  }
+}

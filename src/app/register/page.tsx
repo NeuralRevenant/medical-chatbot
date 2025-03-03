@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import styles from "./register.module.scss";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -23,7 +24,6 @@ export default function RegisterPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password, name }),
       });
-
       setLoading(false);
 
       if (!res.ok) {
@@ -31,7 +31,6 @@ export default function RegisterPage() {
         throw new Error(error || "Registration failed");
       }
 
-      // If success, redirect to /login
       router.push("/login");
     } catch (err: any) {
       setErrorMsg(err.message);
@@ -39,80 +38,54 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 flex items-center justify-center px-4">
-      {/* Card Container */}
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">
-          Create an Account
-        </h1>
-        <form onSubmit={handleRegister} className="space-y-5">
-          {/* Name Field */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Full Name
-            </label>
+    <div className={styles.registerPage}>
+      <div className={styles.registerCard}>
+        <h1 className={styles.title}>Create Account</h1>
+        <form onSubmit={handleRegister}>
+          <div className={styles.inputGroup}>
+            <label>Full Name</label>
             <input
               type="text"
-              className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-              placeholder="John Doe"
+              placeholder="Firstname Lastname"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-
-          {/* Email Field */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email Address
-            </label>
+          <div className={styles.inputGroup}>
+            <label>Email Address</label>
             <input
               type="email"
-              className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-              placeholder="example@example.com"
+              placeholder="username@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-
-          {/* Password Field */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
+          <div className={styles.inputGroup}>
+            <label>Password</label>
             <input
               type="password"
-              className="mt-1 w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-200"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200 disabled:opacity-50"
+            className={styles.registerButton}
           >
             {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
-        {/* Error Message */}
-        {errorMsg && (
-          <p className="mt-2 text-red-600 text-center">{errorMsg}</p>
-        )}
+        {errorMsg && <p className={styles.errorMsg}>{errorMsg}</p>}
 
-        {/* Login Link */}
-        <div className="mt-6 text-center text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link href="/login" className="text-blue-600 hover:underline">
-            Sign In
-          </Link>
-        </div>
+        <Link href="/login" className={styles.loginLink}>
+          Already have an account? Sign In
+        </Link>
       </div>
-    </main>
+    </div>
   );
 }
