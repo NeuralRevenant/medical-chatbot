@@ -4,8 +4,11 @@ import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
 const handler = NextAuth({
+  // Use JWT tokens only
   session: { strategy: "jwt" },
+  // Secret for signing the JWT
   secret: process.env.NEXTAUTH_SECRET,
+  // Credentials Provider using PG via Prisma
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -18,14 +21,15 @@ const handler = NextAuth({
           throw new Error("Email and password are required.");
         }
 
+        // Find user in Postgres:
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
         });
-
         if (!user) {
           throw new Error("No user found with this email.");
         }
 
+        // Compare hashed passwords
         const isValid = await bcrypt.compare(
           credentials.password,
           user.password
@@ -34,7 +38,7 @@ const handler = NextAuth({
           throw new Error("Invalid password.");
         }
 
-        // Return user object
+        // Return minimal user object to embed in JWT:
         return {
           id: user.id,
           email: user.email,
@@ -44,10 +48,11 @@ const handler = NextAuth({
     }),
   ],
   pages: {
-    signIn: "/login",
-    error: "/login",
+    signIn: "/login", // If login fails or user visits /api/auth/signin
+    error: "/login", // If an error occurs, redirect to login
   },
   callbacks: {
+    // Called whenever a token is created or updated
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -56,6 +61,7 @@ const handler = NextAuth({
       }
       return token;
     },
+    // Called whenever a session is checked (client side or SSR)
     async session({ session, token }) {
       session.user = {
         id: token.id as string,
