@@ -12,13 +12,14 @@ interface Params {
 
 // GET => Retrieve all messages for the chat
 export async function GET(request: Request, { params }: Params) {
+  const { chatId } = await Promise.resolve(params);
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
     const chat = await prisma.chat.findUnique({
-      where: { id: params.chatId },
+      where: { id: chatId },
       include: { messages: { orderBy: { createdAt: "asc" } } },
     });
     if (!chat || chat.userId !== session.user.id) {
@@ -37,8 +38,9 @@ export async function GET(request: Request, { params }: Params) {
   }
 }
 
-// POST => user sends a new message, store it, call the RAG engine, store response
+// POST => user sends a new message, store it, call the RAG engine, and store response
 export async function POST(request: Request, { params }: Params) {
+  const { chatId } = await Promise.resolve(params);
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -52,7 +54,7 @@ export async function POST(request: Request, { params }: Params) {
     // 1) Store user message
     const userMsg = await prisma.message.create({
       data: {
-        chatId: params.chatId,
+        chatId: chatId,
         role: "user",
         content,
       },
@@ -65,7 +67,7 @@ export async function POST(request: Request, { params }: Params) {
     // 3) Store assistant response
     const assistantMsg = await prisma.message.create({
       data: {
-        chatId: params.chatId,
+        chatId: chatId,
         role: "assistant",
         content: assistantContent,
       },
@@ -83,19 +85,20 @@ export async function POST(request: Request, { params }: Params) {
 
 // DELETE => Delete entire chat
 export async function DELETE(request: Request, { params }: Params) {
+  const { chatId } = await Promise.resolve(params);
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const chat = await prisma.chat.findUnique({ where: { id: params.chatId } });
+    const chat = await prisma.chat.findUnique({ where: { id: chatId } });
     if (!chat || chat.userId !== session.user.id) {
       return NextResponse.json(
         { error: "Not found or not your chat" },
         { status: 404 }
       );
     }
-    await prisma.chat.delete({ where: { id: params.chatId } });
+    await prisma.chat.delete({ where: { id: chatId } });
     return NextResponse.json({ success: true });
   } catch (err: any) {
     console.error("Error deleting chat:", err);
