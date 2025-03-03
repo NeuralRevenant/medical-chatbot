@@ -1,0 +1,108 @@
+@use "sass:color";
+
+$bg-color: #111827;
+$primary-color: #3b82f6;
+$text-color: #f0f0f0;
+$border-radius: 8px;
+$transition-duration: 0.3s;
+
+/* The entire sidebar container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100vh;
+  background-color: $bg-color;
+  color: $text-color;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform $transition-duration ease;
+  z-index: 200;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+
+  @media (min-width: 769px) {
+    transform: none;
+    position: relative;
+    box-shadow: none;
+  }
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: $text-color;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-bottom: 1rem;
+
+  @media (min-width: 769px) {
+    display: none; /* hide on desktop */
+  }
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .penIcon {
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: color.scale($primary-color, $lightness: +20%);
+    transition: color $transition-duration ease;
+
+    &:hover {
+      color: color.scale($primary-color, $lightness: +40%);
+    }
+  }
+}
+
+.chatList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.chatItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: color.scale($bg-color, $lightness: +5%);
+  padding: 0.6rem 0.8rem;
+  border-radius: $border-radius;
+  transition: background $transition-duration ease;
+
+  &:hover {
+    background: color.scale($bg-color, $lightness: +10%);
+  }
+
+  .chatTitle {
+    flex: 1;
+    margin-right: 0.5rem;
+  }
+
+  .deleteIcon {
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color $transition-duration ease;
+    color: color.scale($primary-color, $lightness: +10%);
+
+    &:hover {
+      color: color.scale($primary-color, $lightness: +30%);
+    }
+  }
+}

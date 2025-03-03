@@ -49,6 +49,7 @@ export default function RegisterPage() {
               placeholder="Firstname Lastname"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
           <div className={styles.inputGroup}>

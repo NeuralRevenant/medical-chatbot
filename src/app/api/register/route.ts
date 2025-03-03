@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
     if (password.length < 8 || password.length > 30) {
       return NextResponse.json(
-        { error: "The password must be between 8 and 30 characters long." },
+        { error: "The password must be 8-30 characters long." },
         { status: 400 }
       );
     }

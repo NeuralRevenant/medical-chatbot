@@ -1,13 +1,15 @@
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
-const handler = NextAuth({
+export const authOptions: AuthOptions = {
   // Use JWT tokens only
   session: { strategy: "jwt" },
+
   // Secret for signing the JWT
   secret: process.env.NEXTAUTH_SECRET,
+
   // Credentials Provider using PG via Prisma
   providers: [
     CredentialsProvider({
@@ -47,10 +49,12 @@ const handler = NextAuth({
       },
     }),
   ],
+
   pages: {
     signIn: "/login", // If login fails or user visits /api/auth/signin
-    error: "/login", // If an error occurs, redirect to login
+    error: "/login", // If an error occurs, redirect to /login
   },
+
   callbacks: {
     // Called whenever a token is created or updated
     async jwt({ token, user }) {
@@ -61,6 +65,7 @@ const handler = NextAuth({
       }
       return token;
     },
+
     // Called whenever a session is checked (client side or SSR)
     async session({ session, token }) {
       session.user = {
@@ -71,6 +76,9 @@ const handler = NextAuth({
       return session;
     },
   },
-});
+};
+
+// The actual NextAuth handler for GET/POST requests
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
