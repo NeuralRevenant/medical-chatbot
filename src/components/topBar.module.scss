@@ -1,17 +1,9 @@
-@use "sass:color";
-
-$bg-color: #111827;
-$text-color: #f0f0f0;
-$primary-color: #3b82f6;
-$transition-duration: 0.3s;
-$border-radius: 8px;
-
 .topBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $bg-color;
-  color: $text-color;
+  background-color: #0d0d0d;
+  color: #f0f0f0;
   padding: 0.75rem 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
@@ -19,22 +11,16 @@ $border-radius: 8px;
 .burgerIcon {
   font-size: 1.4rem;
   cursor: pointer;
-  transition: color $transition-duration ease;
-  color: $text-color;
 
-  &:hover {
-    color: color.scale($primary-color, $lightness: +20%);
-  }
-
-  @media (min-width: 769px) {
-    display: none; /* hide the burger on desktop */
+  @media (min-width: 768px) {
+    display: none;
   }
 }
 
 .rightIcons {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  margin-left: auto;
 }
 
 .profileContainer {
@@ -43,38 +29,29 @@ $border-radius: 8px;
 
 .profileIcon {
   font-size: 1.8rem;
-  border-radius: 50%;
   cursor: pointer;
-  transition: color $transition-duration ease;
-  color: color.scale($primary-color, $lightness: +10%);
-
-  &:hover {
-    color: color.scale($primary-color, $lightness: +30%);
-  }
 }
 
-/* The dropdown that appears under the profile icon */
 .dropdown {
   position: absolute;
-  top: 110%;
+  top: 130%;
   right: 0;
-  background-color: $bg-color;
-  padding: 0.5rem 0;
+  background-color: #111827;
+  border-radius: 8px;
   min-width: 120px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  border-radius: $border-radius;
-  z-index: 999;
   display: flex;
   flex-direction: column;
+  padding: 0.5rem 0;
+  z-index: 999;
 }
 
 .dropdownItem {
+  color: #f0f0f0;
   padding: 0.5rem 1rem;
-  color: $text-color;
   cursor: pointer;
-  transition: background-color $transition-duration ease;
 
   &:hover {
-    background-color: color.scale($bg-color, $lightness: +10%);
+    background-color: #1f2937;
   }
 }

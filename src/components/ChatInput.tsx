@@ -2,36 +2,50 @@
 
 import React, { useState } from "react";
 import styles from "./chatInput.module.scss";
-import { FaPaperPlane } from "react-icons/fa";
-import { sendUserMessage } from "@/lib/chatApi";
+import { sendMessage, createChat } from "@/lib/chatApi";
+import { fetchChatTitleFromLLM } from "@/lib/semanticEngine";
+import { useChats, useChatMessages } from "@/lib/chatHooks";
 
 interface Props {
-  chatId: string | null;
-  onNewMessages: (msgs: any[]) => void;
+  selectedChatId: string;
+  onChatCreated: (chatId: string) => void;
 }
 
-export default function ChatInput({ chatId, onNewMessages }: Props) {
+export default function ChatInput({ selectedChatId, onChatCreated }: Props) {
   const [message, setMessage] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const { mutate: mutateChats } = useChats();
+  const { mutate: mutateMessages } = useChatMessages(selectedChatId);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!message.trim()) return;
+    const content = message.trim();
+    if (!content) return;
+
+    let chatId = selectedChatId;
+    // If no chat selected => auto-generate a title using BlueHive LLM, create chat with that title
     if (!chatId) {
-      alert("No chat selected. Please create or select a chat first.");
-      return;
+      try {
+        const derivedTitle = await fetchChatTitleFromLLM(content);
+        const newChat = await createChat(derivedTitle);
+        chatId = newChat.id;
+        onChatCreated(chatId);
+        mutateChats(); // refresh chat list
+      } catch (err: any) {
+        console.error("Failed to auto-create chat:", err);
+        setErrorMsg(err.message || "Failed to auto-create chat");
+        return;
+      }
     }
 
+    // Now we have a chatId => send the message
     try {
-      // This calls the "POST /api/chats/[chatId]" route to store user + get assistant
-      const res = await sendUserMessage(chatId, message);
-      // res => { userMsg, assistantMsg }
-      if (res.userMsg && res.assistantMsg) {
-        // pass them up to refresh the chat
-        onNewMessages([res.userMsg, res.assistantMsg]);
-      }
+      await sendMessage(chatId, content);
+      mutateMessages();
       setMessage("");
-    } catch (err) {
-      console.error("Failed sending user message:", err);
+    } catch (err: any) {
+      console.error("Failed to send message:", err);
+      setErrorMsg(err.message || "Failed to send message");
     }
   }
 
@@ -45,8 +59,9 @@ export default function ChatInput({ chatId, onNewMessages }: Props) {
         onChange={(e) => setMessage(e.target.value)}
       />
       <button type="submit" className={styles.sendButton}>
-        <FaPaperPlane />
+        Send
       </button>
+      {errorMsg && <p className={styles.error}>{errorMsg}</p>}
     </form>
   );
 }

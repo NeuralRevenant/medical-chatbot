@@ -1,55 +1,91 @@
-@use "sass:color";
+// @use "sass:color";
 
-$bg-color: #1f2937;
-$primary-color: #3b82f6;
-$text-color: #ffffff;
-$border-radius: 8px;
-$transition-duration: 0.3s;
+// $bg-color: #1f2937;
+// $primary-color: #3b82f6;
+// $text-color: #ffffff;
+// $border-radius: 8px;
+// $transition-duration: 0.3s;
+
+// .chatInputForm {
+//   display: flex;
+//   align-items: center;
+//   padding: 1rem;
+//   background-color: $bg-color;
+//   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
+// }
+
+// .inputBox {
+//   flex: 1;
+//   padding: 0.8rem;
+//   border: none;
+//   border-radius: $border-radius;
+//   margin-right: 0.5rem;
+//   background-color: color.scale($bg-color, $lightness: +10%);
+//   color: $text-color;
+//   outline: none;
+//   transition: box-shadow $transition-duration ease;
+
+//   &:focus {
+//     box-shadow: 0 0 6px rgba($primary-color, 0.5);
+//   }
+// }
+
+// .sendButton {
+//   background-color: $primary-color;
+//   border: none;
+//   border-radius: 50%;
+//   width: 42px;
+//   height: 42px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   color: $text-color;
+//   cursor: pointer;
+//   transition: transform $transition-duration ease,
+//     background-color $transition-duration ease;
+
+//   &:hover {
+//     transform: scale(1.08);
+//     background-color: color.scale($primary-color, $lightness: +10%);
+//   }
+
+//   svg {
+//     font-size: 1.2rem;
+//   }
+// }
 
 .chatInputForm {
   display: flex;
   align-items: center;
   padding: 1rem;
-  background-color: $bg-color;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
+  background-color: #1f2937;
+  position: relative;
 }
 
 .inputBox {
   flex: 1;
   padding: 0.8rem;
   border: none;
-  border-radius: $border-radius;
+  border-radius: 8px;
   margin-right: 0.5rem;
-  background-color: color.scale($bg-color, $lightness: +10%);
-  color: $text-color;
-  outline: none;
-  transition: box-shadow $transition-duration ease;
-
-  &:focus {
-    box-shadow: 0 0 6px rgba($primary-color, 0.5);
-  }
+  background-color: #111827;
+  color: #f0f0f0;
 }
 
 .sendButton {
-  background-color: $primary-color;
+  background-color: #3b82f6;
   border: none;
   border-radius: 50%;
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $text-color;
+  width: 48px;
+  height: 48px;
+  color: #ffffff;
   cursor: pointer;
-  transition: transform $transition-duration ease,
-    background-color $transition-duration ease;
+}
 
-  &:hover {
-    transform: scale(1.08);
-    background-color: color.scale($primary-color, $lightness: +10%);
-  }
-
-  svg {
-    font-size: 1.2rem;
-  }
+.error {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 1rem;
+  color: #f87171;
+  font-size: 0.85rem;
 }

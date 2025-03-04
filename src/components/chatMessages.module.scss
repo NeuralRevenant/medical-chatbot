@@ -1,0 +1,26 @@
+.messagesContainer {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.messageBubble {
+  max-width: 70%;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  line-height: 1.4;
+  color: #f0f0f0;
+}
+
+.assistant {
+  background-color: #2563eb;
+  margin-right: auto;
+}
+
+.user {
+  background-color: #3b82f6;
+  margin-left: auto;
+}
