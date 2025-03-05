@@ -1,12 +1,12 @@
+/* src/components/chatSidebar.module.scss */
 @use "sass:color";
 
-$bg-color: #111827;
-$primary-color: #3b82f6;
-$text-color: #f0f0f0;
+$bg-color: #e3f2fd;
+$primary-color: #2196f3;
+$text-color: #0d0d0d;
 $border-radius: 8px;
 $transition-duration: 0.3s;
 
-/* The entire sidebar container */
 .sidebar {
   position: fixed;
   top: 0;
@@ -19,7 +19,7 @@ $transition-duration: 0.3s;
   transform: translateX(-100%);
   transition: transform $transition-duration ease;
   z-index: 200;
-  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.7);
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
   padding: 1rem;
 
   @media (min-width: 769px) {
@@ -44,7 +44,7 @@ $transition-duration: 0.3s;
   margin-bottom: 1rem;
 
   @media (min-width: 769px) {
-    display: none; /* hide on desktop */
+    display: none;
   }
 }
 
@@ -81,13 +81,13 @@ $transition-duration: 0.3s;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: color.scale($bg-color, $lightness: +5%);
+  background-color: color.scale($bg-color, $lightness: +5%);
   padding: 0.6rem 0.8rem;
   border-radius: $border-radius;
   transition: background $transition-duration ease;
 
   &:hover {
-    background: color.scale($bg-color, $lightness: +10%);
+    background-color: color.scale($bg-color, $lightness: +10%);
   }
 
   .chatTitle {

@@ -1,16 +1,25 @@
+@use "sass:color";
+
+$bg-color: #e3f2fd;
+$text-color: #0d0d0d;
+$primary-color: #2196f3;
+$transition-duration: 0.3s;
+$border-radius: 8px;
+
 .topBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #0d0d0d;
-  color: #f0f0f0;
+  background-color: $bg-color;
+  color: $text-color;
   padding: 0.75rem 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .burgerIcon {
   font-size: 1.4rem;
   cursor: pointer;
+  color: $text-color;
 
   @media (min-width: 768px) {
     display: none;
@@ -30,16 +39,17 @@
 .profileIcon {
   font-size: 1.8rem;
   cursor: pointer;
+  border-radius: 50%;
 }
 
 .dropdown {
   position: absolute;
   top: 130%;
   right: 0;
-  background-color: #111827;
-  border-radius: 8px;
+  background-color: $bg-color;
+  border-radius: $border-radius;
   min-width: 120px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0;
@@ -47,11 +57,12 @@
 }
 
 .dropdownItem {
-  color: #f0f0f0;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  transition: background-color $transition-duration ease;
+  color: $text-color;
 
   &:hover {
-    background-color: #1f2937;
+    background-color: color.scale($bg-color, $lightness: +10%);
   }
 }

@@ -1,85 +1,88 @@
-// @use "sass:color";
+@use "sass:color";
 
-// $bg-color: #1f2937;
-// $primary-color: #3b82f6;
-// $text-color: #ffffff;
-// $border-radius: 8px;
-// $transition-duration: 0.3s;
+$bg-input: #1f2937;
+$border-glow: #3b82f6;
+$text-color: #f0f0f0;
 
-// .chatInputForm {
-//   display: flex;
-//   align-items: center;
-//   padding: 1rem;
-//   background-color: $bg-color;
-//   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.4);
-// }
-
-// .inputBox {
-//   flex: 1;
-//   padding: 0.8rem;
-//   border: none;
-//   border-radius: $border-radius;
-//   margin-right: 0.5rem;
-//   background-color: color.scale($bg-color, $lightness: +10%);
-//   color: $text-color;
-//   outline: none;
-//   transition: box-shadow $transition-duration ease;
-
-//   &:focus {
-//     box-shadow: 0 0 6px rgba($primary-color, 0.5);
-//   }
-// }
-
-// .sendButton {
-//   background-color: $primary-color;
-//   border: none;
-//   border-radius: 50%;
-//   width: 42px;
-//   height: 42px;
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   color: $text-color;
-//   cursor: pointer;
-//   transition: transform $transition-duration ease,
-//     background-color $transition-duration ease;
-
-//   &:hover {
-//     transform: scale(1.08);
-//     background-color: color.scale($primary-color, $lightness: +10%);
-//   }
-
-//   svg {
-//     font-size: 1.2rem;
-//   }
-// }
-
+/* Container that includes a top border line + glow animation */
 .chatInputForm {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  gap: 1rem;
   padding: 1rem;
-  background-color: #1f2937;
-  position: relative;
+  background-color: $bg-input;
+  // position: relative;
+  // border-top: 2px solid $border-glow;
+  // animation: inputGlow 6s ease-in-out infinite alternate;
+
+  // @keyframes inputGlow {
+  //   0% {
+  //     box-shadow: 0 -2px 10px rgba(color.scale($border-glow, $lightness: +10%), 0.3);
+  //   }
+  //   100% {
+  //     box-shadow: 0 -2px 20px rgba(color.scale($border-glow, $lightness: +10%), 0.6);
+  //   }
+  // }
 }
 
+/* Multi-line input box */
 .inputBox {
   flex: 1;
+  min-height: 100px;
+  max-height: 120px;
+  resize: vertical;
   padding: 0.8rem;
   border: none;
   border-radius: 8px;
-  margin-right: 0.5rem;
   background-color: #111827;
-  color: #f0f0f0;
+  color: $text-color;
+  font-size: 1rem;
+  outline: none;
+  line-height: 1.4;
 }
 
+/* Send button with spinner states */
 .sendButton {
-  background-color: #3b82f6;
+  background-color: $border-glow;
   border: none;
   border-radius: 50%;
   width: 48px;
   height: 48px;
   color: #ffffff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.05);
+    background-color: color.scale($border-glow, $lightness: +10%);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* Loading spinner inside the button */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #ffffff;
+  border-top: 3px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error {

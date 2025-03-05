@@ -46,7 +46,8 @@ export async function POST(request: Request, { params }: Params) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const { content } = await request.json();
+    const body = await request.json();
+    const content = body?.content || "";
     if (!content.trim()) {
       return NextResponse.json({ error: "Empty message" }, { status: 400 });
     }

@@ -12,7 +12,7 @@ export default function HomePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedChatId, setSelectedChatId] = useState<string>("");
 
-  const { chats, isLoading } = useChats(); // SWR for chat list
+  const { chats, isLoading } = useChats();
 
   function toggleSidebar() {
     setSidebarOpen(!sidebarOpen);
@@ -36,19 +36,22 @@ export default function HomePage() {
         <TopBar toggleSidebar={toggleSidebar} />
 
         <div className={styles.chatContent}>
-          {selectedChatId ? (
-            <ChatMessages chatId={selectedChatId} />
-          ) : (
-            <div className={styles.welcomePane}>
-              <h2>Welcome!</h2>
-              <p>Select or create a chat, or type below to auto-create one.</p>
-            </div>
-          )}
-
-          <ChatInput
-            selectedChatId={selectedChatId}
-            onChatCreated={(newChatId) => setSelectedChatId(newChatId)}
-          />
+          <div className={styles.messagesWrapper}>
+            {selectedChatId ? (
+              <ChatMessages chatId={selectedChatId} />
+            ) : (
+              <div className={styles.welcomePane}>
+                <h2>Welcome!</h2>
+                <p>Select or create a chat, or type below to auto-create one.</p>
+              </div>
+            )}
+          </div>
+          <div className={styles.chatInputWrapper}>
+            <ChatInput
+              selectedChatId={selectedChatId}
+              onChatCreated={(newChatId) => setSelectedChatId(newChatId)}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -1,26 +1,56 @@
+@use "sass:color";
+
+$assistant-bg: #2196f3;
+$user-bg: #64b5f6;
+$text-color: #ffffff;
+$message-gap: 1rem;
+
 .messagesContainer {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: $message-gap;
 }
 
 .messageBubble {
   max-width: 70%;
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 8px;
   line-height: 1.4;
-  color: #f0f0f0;
+  color: $text-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .assistant {
-  background-color: #2563eb;
+  background-color: $assistant-bg;
   margin-right: auto;
 }
 
 .user {
-  background-color: #3b82f6;
+  background-color: $user-bg;
   margin-left: auto;
+}
+
+.loading,
+.error,
+.noMessages {
+  text-align: center;
+  color: #f0f0f0;
+  padding: 1rem;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
