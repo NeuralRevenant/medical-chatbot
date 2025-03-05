@@ -4,7 +4,7 @@ export async function askEngine(userQuery: string, top_k = 3) {
     const res = await fetch("http://localhost:8000/ask", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userQuery),
+      body: JSON.stringify({ "query": userQuery }),
     });
     const data = await res.json(); // { query:..., answer:... }
     console.log(`[Debug] Response from the Semantic Query Engine: ${JSON.stringify(data)}`)
