@@ -13,6 +13,9 @@ $message-gap: 1rem;
   flex-direction: column;
   gap: $message-gap;
   background: #fafcff;
+
+  padding-top: 70px; // gap to avoid topbar overlapping with messages
+  padding-bottom: 140px; // gap to avoid chatbox overlapping with messages
 }
 
 // Expand/Collapse or fade in animation for new messages

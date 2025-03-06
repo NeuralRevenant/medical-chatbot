@@ -13,8 +13,14 @@ $text-color: #f0f0f0;
   gap: 1rem;
   padding: 1rem;
   background-color: $bg-input;
-  position: relative;
-  border-top: 2px solid $border-glow;
+  position: fixed;
+  bottom: 0px;
+  left: 300px;
+  min-width: 70%;
+  max-width: 80%;
+  z-index: 1000;
+  border-top: 1px solid $border-glow;
+  border-radius: 10px;
   animation: inputGlow 4s ease-in-out infinite alternate;
 
   @keyframes inputGlow {
@@ -25,13 +31,35 @@ $text-color: #f0f0f0;
       box-shadow: 0 -2px 20px rgba($border-glow, 0.8);
     }
   }
+
+  @media (max-width: 1200px) {
+    min-width: 70%;
+    max-width: 70%;
+  }
+
+  @media (max-width: 1110px) {
+    left: 270px;
+    min-width: 70%;
+    max-width: 70%;
+  }
+
+  @media (max-width: 1000px) {
+    min-width: 60%;
+    max-width: 60%;
+  }
+
+  @media (max-width: 768px) {
+    left: 10px;
+    min-width: 90%;
+    max-width: 90%;
+  }
 }
 
 /* Multi-line text box */
 .inputBox {
   flex: 1;
-  min-height: 100px;
-  max-height: 120px;
+  min-height: 90px;
+  max-height: 110px;
   resize: vertical;
   padding: 0.8rem;
   border: none;
