@@ -2,19 +2,14 @@
 
 $bg-gradient-start: #2c5364;
 $bg-gradient-mid: #203a43;
-$bg-gradient-end: #0f2027;
+$bg-gradient-end: #fafcff;
 
 .homeContainer {
   display: flex;
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(
-    135deg,
-    $bg-gradient-start,
-    $bg-gradient-mid,
-    $bg-gradient-end
-  );
-  background-size: 200% 200%;
+  background: #fafcff;
+  // background-size: 200% 200%;
   animation: gradientShift 8s ease-in-out infinite;
 
   @keyframes gradientShift {
@@ -40,7 +35,7 @@ $bg-gradient-end: #0f2027;
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #111827;
+  // background-color: #111827;
   // position: relative;
   // overflow: hidden;
 }
@@ -61,7 +56,7 @@ $bg-gradient-end: #0f2027;
   padding: 1rem;
 }
 
-// chat input is pinned at the bottom by being the last child in a column flex layout
+// chat input pinned at the bottom being the last child in a col flex layout
 .chatInputWrapper {
   border-top: 2px solid #3b82f6;
   animation: inputGlow 6s ease-in-out infinite alternate;

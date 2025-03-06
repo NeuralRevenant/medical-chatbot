@@ -1,31 +1,33 @@
 @use "sass:color";
 
-$bg-input: #1f2937;
+$bg-input: #b6e1ff;
 $border-glow: #3b82f6;
 $text-color: #f0f0f0;
 
-/* Container that includes a top border line + glow animation */
 .chatInputForm {
   display: flex;
-  align-items: flex-end;
+  // align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
   gap: 1rem;
   padding: 1rem;
   background-color: $bg-input;
-  // position: relative;
-  // border-top: 2px solid $border-glow;
-  // animation: inputGlow 6s ease-in-out infinite alternate;
+  position: relative;
+  border-top: 2px solid $border-glow;
+  animation: inputGlow 4s ease-in-out infinite alternate;
 
-  // @keyframes inputGlow {
-  //   0% {
-  //     box-shadow: 0 -2px 10px rgba(color.scale($border-glow, $lightness: +10%), 0.3);
-  //   }
-  //   100% {
-  //     box-shadow: 0 -2px 20px rgba(color.scale($border-glow, $lightness: +10%), 0.6);
-  //   }
-  // }
+  @keyframes inputGlow {
+    0% {
+      box-shadow: 0 -2px 10px rgba($border-glow, 0.2);
+    }
+    100% {
+      box-shadow: 0 -2px 20px rgba($border-glow, 0.8);
+    }
+  }
 }
 
-/* Multi-line input box */
+/* Multi-line text box */
 .inputBox {
   flex: 1;
   min-height: 100px;
@@ -34,16 +36,16 @@ $text-color: #f0f0f0;
   padding: 0.8rem;
   border: none;
   border-radius: 8px;
-  background-color: #111827;
+  background-color: #00233c;
   color: $text-color;
   font-size: 1rem;
   outline: none;
   line-height: 1.4;
 }
 
-/* Send button with spinner states */
+/* Send button */
 .sendButton {
-  background-color: $border-glow;
+  background-color: #2468d6;
   border: none;
   border-radius: 50%;
   width: 48px;
@@ -58,6 +60,7 @@ $text-color: #f0f0f0;
   &:hover:not(:disabled) {
     transform: scale(1.05);
     background-color: color.scale($border-glow, $lightness: +10%);
+    box-shadow: 0 0 10px rgba($border-glow, 0.5);
   }
 
   &:disabled {
@@ -76,6 +79,14 @@ $text-color: #f0f0f0;
   animation: spin 1s linear infinite;
 }
 
+.error {
+  position: absolute;
+  bottom: -1.5rem;
+  left: 1rem;
+  color: #f87171;
+  font-size: 0.85rem;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -83,12 +94,4 @@ $text-color: #f0f0f0;
   100% {
     transform: rotate(360deg);
   }
-}
-
-.error {
-  position: absolute;
-  bottom: -1.5rem;
-  left: 1rem;
-  color: #f87171;
-  font-size: 0.85rem;
 }

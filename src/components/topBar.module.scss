@@ -14,12 +14,30 @@ $border-radius: 8px;
   color: $text-color;
   padding: 0.75rem 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  box-shadow: 0 2px 8px rgba($primary-color, 0.3);
+  animation: topBarGlow 3s ease-in-out infinite alternate;
+
+  @keyframes topBarGlow {
+    0% {
+      box-shadow: 0 2px 8px rgba($primary-color, 0.3);
+    }
+    100% {
+      box-shadow: 0 4px 12px rgba($primary-color, 0.6);
+    }
+  }
 }
 
 .burgerIcon {
   font-size: 1.4rem;
   cursor: pointer;
   color: $text-color;
+  transition: color $transition-duration ease;
+
+  &:hover {
+    color: color.scale($primary-color, $lightness: +40%);
+  }
 
   @media (min-width: 768px) {
     display: none;
@@ -30,6 +48,7 @@ $border-radius: 8px;
   display: flex;
   align-items: center;
   margin-left: auto;
+  gap: 1rem;
 }
 
 .profileContainer {
@@ -40,6 +59,13 @@ $border-radius: 8px;
   font-size: 1.8rem;
   cursor: pointer;
   border-radius: 50%;
+  transition: box-shadow $transition-duration ease,
+    color $transition-duration ease;
+
+  &:hover {
+    box-shadow: 0 0 8px rgba($primary-color, 0.5);
+    color: color.scale($primary-color, $lightness: +20%);
+  }
 }
 
 .dropdown {

@@ -1,7 +1,7 @@
 @use "sass:color";
 
-$assistant-bg: #2196f3;
-$user-bg: #64b5f6;
+$assistant-bg: #004cff;
+$user-bg: #2196f3;
 $text-color: #ffffff;
 $message-gap: 1rem;
 
@@ -12,6 +12,19 @@ $message-gap: 1rem;
   display: flex;
   flex-direction: column;
   gap: $message-gap;
+  background: #fafcff;
+}
+
+// Expand/Collapse or fade in animation for new messages
+@keyframes messageAppear {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .messageBubble {
@@ -20,7 +33,8 @@ $message-gap: 1rem;
   border-radius: 8px;
   line-height: 1.4;
   color: $text-color;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  animation: messageAppear 0.8s ease forwards;
 }
 
 .assistant {
@@ -37,7 +51,7 @@ $message-gap: 1rem;
 .error,
 .noMessages {
   text-align: center;
-  color: #f0f0f0;
+  color: #444444;
   padding: 1rem;
 }
 
