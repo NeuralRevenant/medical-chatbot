@@ -20,7 +20,7 @@ $border-radius: 8px;
   right: 0 !important;
   height: 50px;
   display: flex;
-  z-index: 1150;
+  z-index: 1200;
   align-items: center;
   justify-content: space-between;
   background-color: $bg-color;
@@ -43,7 +43,7 @@ $border-radius: 8px;
 }
 
 .burgerIcon {
-  font-size: 1.4rem;
+  // font-size: 1.4rem;
   cursor: pointer;
   color: $text-color;
   transition: color $transition-duration ease;

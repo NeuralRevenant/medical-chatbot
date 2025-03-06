@@ -35,7 +35,9 @@ export default function HomePage() {
       <div className={styles.mainArea}>
         <TopBar toggleSidebar={toggleSidebar} />
 
-        <div className={styles.chatContent}>
+
+        <div className={`${styles.chatContent} ${sidebarOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
+          {/* <div className={sidebarOpen ? styles.chatContent + styles.sidebarOpen : styles.chatContent}> */}
           <div className={styles.messagesWrapper}>
             {selectedChatId ? (
               <ChatMessages chatId={selectedChatId} />
@@ -49,7 +51,7 @@ export default function HomePage() {
           <div className={styles.chatInputWrapper}>
             <ChatInput
               selectedChatId={selectedChatId}
-              onChatCreated={(newChatId) => setSelectedChatId(newChatId)}
+              onChatCreated={(newChatId: string) => setSelectedChatId(newChatId)}
             />
           </div>
         </div>

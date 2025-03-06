@@ -1,4 +1,4 @@
-/* Reset some default styles */
+// Reset some default styles
 *,
 *::before,
 *::after {
@@ -7,23 +7,22 @@
   padding: 0;
 }
 
-/* Base html styles */
+// Base html styles
 html {
   font-size: 16px;
   scroll-behavior: smooth;
 }
 
-/* Body Styles */
+// Body Styles
 body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
-  background-color: #f3f4f6; /* light gray background */
-  color: #1f2937; /* dark gray text */
+  background-color: #f3f4f6;
+  color: #1f2937;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings */
 h1,
 h2,
 h3,
@@ -35,12 +34,10 @@ h6 {
   color: inherit;
 }
 
-/* Paragraphs */
 p {
   margin-bottom: 1rem;
 }
 
-/* Links */
 a {
   color: #3498db;
   text-decoration: none;
@@ -52,7 +49,6 @@ a:hover {
   color: #287bb5;
 }
 
-/* Utility classes */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -64,7 +60,6 @@ a:hover {
   text-align: center;
 }
 
-/* Form Elements */
 input,
 textarea,
 button,
@@ -73,7 +68,6 @@ select {
   font-size: 1rem;
 }
 
-/* Button Reset */
 button {
   cursor: pointer;
   border: none;
@@ -81,7 +75,6 @@ button {
   outline: none;
 }
 
-/* Basic responsive typography */
 @media (max-width: 768px) {
   html {
     font-size: 15px;

@@ -38,26 +38,27 @@ $transition-duration: 0.3s;
   //   box-shadow: none;
   //   animation: sidebarGlow 3s ease-in-out infinite alternate;
   // }
+
+  &.open {
+    transform: translateX(0);
+  }
 }
 
-.open {
-  transform: translateX(0);
-}
+// .closeBtn {
+//   display: none;
+//   background: none;
+//   border: none;
+//   font-size: 1.8rem;
+//   color: $text-color;
+//   cursor: pointer;
+//   // display: block;
+//   margin-left: auto;
+//   margin-bottom: 1rem;
 
-.closeBtn {
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  color: $text-color;
-  cursor: pointer;
-  display: block;
-  margin-left: auto;
-  margin-bottom: 1rem;
-
-  // @media (min-width: 769px) {
-  //   display: none;
-  // }
-}
+//   // @media (min-width: 769px) {
+//   //   display: none;
+//   // }
+// }
 
 .sidebarHeader {
   display: flex;

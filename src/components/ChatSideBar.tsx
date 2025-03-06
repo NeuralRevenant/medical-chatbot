@@ -65,10 +65,6 @@ export default function ChatSidebar({
 
   return (
     <div className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-      <button onClick={toggleSidebar} className={styles.closeBtn}>
-        &times;
-      </button>
-
       <div className={styles.sidebarHeader}>
         <h2>My Chats</h2>
         <FaPen className={styles.penIcon} onClick={handleNewChat} />

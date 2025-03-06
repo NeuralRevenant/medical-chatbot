@@ -1,8 +1,10 @@
 @use "sass:color";
 
-$bg-gradient-start: #2c5364;
-$bg-gradient-mid: #203a43;
-$bg-gradient-end: #fafcff;
+// $bg-gradient-start: #2c5364;
+// $bg-gradient-mid: #203a43;
+// $bg-gradient-end: #fafcff;
+$transition-duration: 0.3s;
+$sidebar-width-expanded: 260px;
 
 .homeContainer {
   display: flex;
@@ -29,43 +31,97 @@ $bg-gradient-end: #fafcff;
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+// .chatContent {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   // background-color: #111827;
+//   // position: relative;
+//   // overflow: hidden;
+
+//   position: fixed;
+//   top: 50px;
+//   left: 0;
+//   right: 0;
+//   justify-self: center;
+//   bottom: 0;
+//   overflow-y: auto;
+//   transition: position 0.3s ease;
+//   background: #fafcff;
+
+//   &.sidebarOpen {
+//     top: 50px;
+//     right: 0;
+//     left: 260px;
+//     bottom: 0;
+//   }
+// }
 
 .chatContent {
   flex: 1;
   display: flex;
   flex-direction: column;
-  // background-color: #111827;
-  // position: relative;
-  // overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background: #fafcff;
+  position: fixed;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  transition: left $transition-duration ease, right $transition-duration ease;
+
+  // Default state (sidebar closed)
+  &.sidebarClosed {
+    left: 0;
+    right: 0;
+  }
+
+  // Sidebar open state
+  &.sidebarOpen {
+    left: $sidebar-width-expanded; // Shift left edge to accommodate sidebar
+    right: 0; // Keep right edge pinned to viewport
+
+    @media (max-width: 730px) {
+      left: 0;
+      right: 0;
+    }
+  }
 }
 
 .messagesWrapper {
-  flex: 1;
+  flex: 1 !important;
   overflow-y: auto;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 700px) {
+    padding: 0;
+  }
 }
 
 .welcomePane {
-  flex: 1;
+  flex: 1 !important;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #f0f0f0;
+  color: black;
   text-align: center;
   padding: 1rem;
 }
 
 // chat input pinned at the bottom being the last child in a col flex layout
 .chatInputWrapper {
-  border-top: 2px solid #3b82f6;
-  animation: inputGlow 6s ease-in-out infinite alternate;
-  @keyframes inputGlow {
-    0% {
-      box-shadow: 0 -2px 10px rgba(#3b82f6, 0.3);
-    }
-    100% {
-      box-shadow: 0 -2px 20px rgba(#3b82f6, 0.6);
-    }
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

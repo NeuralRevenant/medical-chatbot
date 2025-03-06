@@ -12,7 +12,7 @@ export async function bluehive_generate_text(
   prompt: string,
   systemMsg: string = ""
 ): Promise<string> {
-  const url = "https://ai.bluehive.com/api/v1/completion";
+  const url = process.env.BLUEHIVEAI_URL || "";
 
   // request payload: { prompt, systemMessage }
   const payload = {
