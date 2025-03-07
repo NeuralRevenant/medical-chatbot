@@ -1,0 +1,105 @@
+@use "sass:color";
+
+$bg-color: #e3f2fd;
+$text-color: #0d0d0d;
+$primary-color: #2196f3;
+$input-bg-color: #ffffff;
+$border-radius: 8px;
+
+.profilePage {
+  padding-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg-color;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.profileCard {
+  background-color: $input-bg-color;
+  padding: 2rem;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  animation: fadeIn 0.4s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.profileTitle {
+  text-align: center;
+  color: $primary-color;
+  margin-bottom: 1.5rem;
+}
+
+.profileInfo {
+  margin-bottom: 1rem;
+
+  label {
+    font-weight: 600;
+    display: block;
+    color: $text-color;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: $border-radius;
+    border: 1px solid color.scale($primary-color, $lightness: +40%);
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 8px rgba($primary-color, 0.4);
+    }
+  }
+
+  p {
+    color: $text-color;
+    font-size: 1rem;
+    padding: 0.4rem;
+  }
+}
+
+.editBtn,
+.saveBtn,
+.cancelBtn {
+  padding: 0.6rem 1.2rem;
+  border-radius: $border-radius;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  color: #ffffff;
+}
+
+.editBtn {
+  background-color: $primary-color;
+}
+
+.saveBtn {
+  background-color: #4caf50;
+}
+
+.cancelBtn {
+  background-color: #f44336;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
