@@ -1,0 +1,151 @@
+@use "sass:color";
+
+$bg-color: #e3f2fd;
+$primary-color: #2196f3;
+$text-color: #0d0d0d;
+$border-radius: 8px;
+$transition-duration: 0.3s;
+
+@keyframes sidebarGlow {
+  0% {
+    box-shadow: inset -2px 0 10px rgba($primary-color, 0.2);
+  }
+  100% {
+    box-shadow: inset -2px 0 15px rgba($primary-color, 0.6);
+  }
+}
+
+.sidebar {
+  position: fixed;
+  top: 50px;
+  left: 0;
+  width: 260px;
+  min-height: calc(100vh - 50px);
+  height: auto;
+  background-color: $bg-color;
+  color: $text-color;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform $transition-duration ease;
+  z-index: 1100;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+
+  // @media (min-width: 769px) {
+  //   transform: none;
+  //   position: relative;
+  //   min-height: 100vh;
+  //   box-shadow: none;
+  //   animation: sidebarGlow 3s ease-in-out infinite alternate;
+  // }
+
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+// .closeBtn {
+//   display: none;
+//   background: none;
+//   border: none;
+//   font-size: 1.8rem;
+//   color: $text-color;
+//   cursor: pointer;
+//   // display: block;
+//   margin-left: auto;
+//   margin-bottom: 1rem;
+
+//   // @media (min-width: 769px) {
+//   //   display: none;
+//   // }
+// }
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  h2 {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  .penIcon {
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: color.scale($primary-color, $lightness: +20%);
+    transition: color $transition-duration ease;
+
+    &:hover {
+      color: color.scale($primary-color, $lightness: +40%);
+    }
+  }
+}
+
+.sidebar-separator {
+  width: 3px;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    color.scale($primary-color, $lightness: +20%),
+    color.scale($primary-color, $lightness: -20%)
+  );
+  box-shadow: 0 0 10px rgba($primary-color, 0.5);
+  animation: glowSeparator 2s infinite alternate ease-in-out;
+
+  @keyframes glowSeparator {
+    0% {
+      box-shadow: 0 0 5px rgba($primary-color, 0.3);
+    }
+    100% {
+      box-shadow: 0 0 15px rgba($primary-color, 0.7);
+    }
+  }
+}
+
+.chatList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.chatItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: color.scale($bg-color, $lightness: +5%);
+  padding: 0.6rem 0.8rem;
+  border-radius: $border-radius;
+  transition: background $transition-duration ease,
+    box-shadow $transition-duration ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: color.scale($bg-color, $lightness: +10%);
+    box-shadow: 0 0 8px rgba($primary-color, 0.2);
+  }
+
+  &.selected {
+    background-color: color.scale($primary-color, $lightness: +45%);
+    box-shadow: 0 0 10px rgba($primary-color, 0.4);
+    color: $text-color;
+    font-weight: 600;
+  }
+
+  .chatTitle {
+    flex: 1;
+    margin-right: 0.5rem;
+  }
+
+  .deleteIcon {
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color $transition-duration ease;
+    color: color.scale($primary-color, $lightness: +10%);
+
+    &:hover {
+      color: color.scale($primary-color, $lightness: +30%);
+    }
+  }
+}

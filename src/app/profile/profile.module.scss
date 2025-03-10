@@ -1,0 +1,205 @@
+@use "sass:color";
+
+$bg-color: #e3f2fd;
+$text-color: #0d0d0d;
+$primary-color: #2196f3;
+$input-bg-color: #ffffff;
+$border-radius: 8px;
+$transition-duration: 0.3s;
+
+// top-bar
+.topBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $bg-color;
+  box-shadow: 0 2px 8px rgba($primary-color, 0.3);
+  z-index: 1200;
+}
+
+.topBarTitle {
+  font-size: 1.2rem;
+  color: $text-color;
+  font-weight: 600;
+  margin: 0;
+}
+
+// container for dropdown icon
+.dropdownContainer {
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hamburgerIcon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: $text-color;
+  transition: color $transition-duration ease;
+
+  &:hover {
+    color: color.scale($primary-color, $lightness: +20%);
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background-color: $bg-color;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  z-index: 1001;
+}
+
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color $transition-duration ease;
+  color: $text-color;
+
+  &:hover {
+    background-color: color.scale($bg-color, $lightness: +10%);
+  }
+}
+
+.profilePage {
+  padding-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $bg-color;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.profileCard {
+  background-color: $input-bg-color;
+  padding: 2rem;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 600px;
+  animation: fadeIn 0.4s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.profileTitle {
+  text-align: center;
+  color: $primary-color;
+  margin-bottom: 1rem;
+}
+
+.profileInfo {
+  margin-bottom: 1rem;
+
+  label {
+    font-weight: 600;
+    display: block;
+    color: $text-color;
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border-radius: $border-radius;
+    border: 1px solid color.scale($primary-color, $lightness: +40%);
+    outline: none;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 8px rgba($primary-color, 0.4);
+    }
+  }
+
+  p {
+    color: $text-color;
+    font-size: 1rem;
+    padding: 0.4rem;
+  }
+}
+
+.editBtn,
+.saveBtn,
+.cancelBtn {
+  padding: 0.6rem 1.2rem;
+  border-radius: $border-radius;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  color: #ffffff;
+}
+
+.editBtn {
+  background-color: $primary-color;
+  max-width: 150px;
+}
+
+.saveBtn {
+  background-color: #4caf50;
+}
+
+.cancelBtn {
+  background-color: #f44336;
+}
+
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.readOnlyProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: center;
+
+  .profileInfo {
+    margin-bottom: 1rem;
+    label {
+      font-weight: 600;
+      display: block;
+      color: $text-color;
+    }
+    p {
+      color: $text-color;
+      font-size: 1rem;
+      padding: 0.4rem;
+    }
+  }
+  .actionButtons {
+    margin-top: 1.5rem;
+  }
+}
+
+p.error {
+  color: #e53935;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+}

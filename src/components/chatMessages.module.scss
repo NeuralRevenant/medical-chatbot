@@ -1,0 +1,98 @@
+@use "sass:color";
+
+$assistant-bg: #004cff;
+$user-bg: #2196f3;
+$text-color: #ffffff;
+$message-gap: 1rem;
+
+// .mainChatWrapper {
+//   position: fixed;
+//   top: 50px;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   overflow-y: auto;
+//   display: flex;
+//   justify-self: center;
+//   transition: padding-left 0.3s ease;
+//   background: #fafcff;
+//   padding-top: 70px; // gap to avoid topbar overlapping with messages
+//   padding-bottom: 140px; // gap to avoid chatbox overlapping with messages
+
+//   &.sidebar-open {
+//     padding-left: 260px;
+//   }
+// }
+
+.messagesContainer {
+  flex: 1;
+  padding: 1rem;
+  width: 100%;
+  max-width: 1200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $message-gap;
+  // background: #fafcff;
+
+  padding-top: 30px; // gap to avoid topbar overlapping with messages
+  padding-bottom: 70px; // gap to avoid chatbox overlapping with messages
+}
+
+// Expand/Collapse or fade in animation for new messages
+@keyframes messageAppear {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.messageBubble {
+  max-width: 70%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  line-height: 1.4;
+  color: $text-color;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  animation: messageAppear 0.8s ease forwards;
+
+  @media (max-width: 768px) {
+    max-width: 85%;
+  }
+}
+
+.assistant {
+  background-color: $assistant-bg;
+  margin-right: auto;
+}
+
+.user {
+  background-color: $user-bg;
+  margin-left: auto;
+}
+
+.loading,
+.error,
+.noMessages {
+  text-align: center;
+  color: #444444;
+  padding: 1rem;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
