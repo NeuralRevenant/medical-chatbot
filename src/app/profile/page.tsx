@@ -1,17 +1,19 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FaBars } from "react-icons/fa";
 
 import styles from "./profile.module.scss";
 import { fetcher } from "@/lib/fetcher";
 
-// define a Zod schema for the form fields:
+// Zod schema for the form fields
 const ProfileSchema = z
     .object({
         name: z.string().min(3, "Name must be at least 3 characters"),
@@ -32,10 +34,26 @@ const ProfileSchema = z
 type ProfileFormData = z.infer<typeof ProfileSchema>;
 
 export default function ProfilePage() {
+    const router = useRouter();
     const { data: session, status } = useSession();
-    const [editMode, setEditMode] = useState(false);
+    // const [editMode, setEditMode] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    // SWR to fetch the user’s current profile
+    // Dropdown logic
+    const toggleDropdown = () => {
+        setDropdownOpen((open) => !open);
+    };
+    const handleBackToChat = () => {
+        router.push("/");
+        setDropdownOpen(false);
+    };
+    const handleLogout = async () => {
+        setDropdownOpen(false);
+        await signOut({ callbackUrl: "/login" });
+    };
+
+
+    // SWR to fetch current profile
     const {
         data: userData,
         error,
@@ -59,7 +77,7 @@ export default function ProfilePage() {
         },
     });
 
-    // Whenever userData arrives, reset the form with the fetched info
+    // Whenever userData arrives, reset the form with that info
     useEffect(() => {
         if (userData) {
             reset({
@@ -71,10 +89,13 @@ export default function ProfilePage() {
         }
     }, [userData, reset]);
 
-    // submit handler to update the user’s profile
+    // Submit handler to update user profile
     const onSubmit = async (formValues: ProfileFormData) => {
         try {
-            // Only send password if the user is actually changing it
+            if (!(formValues.name != userData.name || formValues.email != userData.email || formValues.password)) {
+                alert("Modify the values to edit the profile!");
+                return;
+            }
             const body: Partial<ProfileFormData> = {
                 name: formValues.name,
                 email: formValues.email,
@@ -94,16 +115,14 @@ export default function ProfilePage() {
                 throw new Error(errorResponse.error || "Failed to update profile");
             }
 
-            // Successful update
-            setEditMode(false);
-            // revalidate SWR cache so user sees updated data
-            mutate();
+            // setEditMode(false);
+            mutate(); // revalidate SWR
         } catch (err: any) {
             alert(err.message);
         }
     };
 
-    // Cancel editing: revert form changes to what’s in SWR
+    // Cancel editing: revert to original values
     const handleCancel = () => {
         if (userData) {
             reset({
@@ -113,10 +132,10 @@ export default function ProfilePage() {
                 confirmPassword: "",
             });
         }
-        setEditMode(false);
+        // setEditMode(false);
     };
 
-    // Handle loading and error states
+    // Loading / Auth checks
     if (status === "loading" || isLoading) {
         return <div>Loading profile...</div>;
     }
@@ -128,11 +147,30 @@ export default function ProfilePage() {
     }
 
     return (
-        <div className={styles.profilePage}>
-            <div className={styles.profileCard}>
-                <h2 className={styles.profileTitle}>Profile Information</h2>
+        <>
+            {/* top bar - profile page */}
+            <div className={styles.topBar}>
+                <h2 className={styles.topBarTitle}>Profile</h2>
 
-                {editMode ? (
+                <div className={styles.dropdownContainer}>
+                    <FaBars className={styles.hamburgerIcon} onClick={toggleDropdown} />
+                    {dropdownOpen && (
+                        <div className={styles.dropdown}>
+                            <div className={styles.dropdownItem} onClick={handleBackToChat}>
+                                Chat
+                            </div>
+                            <div className={styles.dropdownItem} onClick={handleLogout}>
+                                Logout
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+
+            <div className={styles.profilePage}>
+                <div className={styles.profileCard}>
+                    <h2 className={styles.profileTitle}>Profile Information</h2>
+
                     <form className={styles.profileForm} onSubmit={handleSubmit(onSubmit)}>
                         {/* Name */}
                         <div className={styles.profileInfo}>
@@ -161,7 +199,7 @@ export default function ProfilePage() {
                             )}
                         </div>
 
-                        {/* Confirm Password (only if user sets a new password) */}
+                        {/* Confirm Password */}
                         <div className={styles.profileInfo}>
                             <label htmlFor="confirmPassword">Confirm New Password</label>
                             <input
@@ -180,25 +218,17 @@ export default function ProfilePage() {
                             <button type="submit" className={styles.saveBtn}>
                                 Save
                             </button>
-                            <button type="button" className={styles.cancelBtn} onClick={handleCancel}>
+                            <button
+                                type="button"
+                                className={styles.cancelBtn}
+                                onClick={handleCancel}
+                            >
                                 Cancel
                             </button>
                         </div>
                     </form>
-                ) : (
-                    <div className={styles.readOnlyProfile}>
-                        <p>
-                            <strong>Name:</strong> {userData?.name}
-                        </p>
-                        <p>
-                            <strong>Email:</strong> {userData?.email}
-                        </p>
-                        <button className={styles.editBtn} onClick={() => setEditMode(true)}>
-                            Edit Profile
-                        </button>
-                    </div>
-                )}
+                </div>
             </div>
-        </div>
+        </>
     );
 }

@@ -66,6 +66,8 @@ $border-radius: 8px;
 
 .profileContainer {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .profileIcon {
@@ -83,7 +85,7 @@ $border-radius: 8px;
 
 .dropdown {
   position: absolute;
-  top: 130%;
+  top: 110%;
   right: 0;
   background-color: $bg-color;
   border-radius: $border-radius;
@@ -92,7 +94,7 @@ $border-radius: 8px;
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0;
-  z-index: 999;
+  z-index: 1001;
 }
 
 .dropdownItem {
