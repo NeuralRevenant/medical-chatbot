@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "No files received" }, { status: 400 });
         }
 
-        // forward to external embedding service - we will recreate a new FormData to send to EMBEDDING_SERVICE_API
-        const embeddingServiceUrl = process.env.EMBEDDING_SERVICE_API;
+        // forward to external embedding service - we will recreate a new FormData to send to NEXT_PUBLIC_EMBEDDING_SERVICE_API
+        const embeddingServiceUrl = process.env.NEXT_PUBLIC_EMBEDDING_SERVICE_API;
         if (!embeddingServiceUrl) {
             return NextResponse.json(
                 { error: "Missing the embedding service details." },

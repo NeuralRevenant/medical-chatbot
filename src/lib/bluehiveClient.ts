@@ -1,6 +1,11 @@
 import { Semaphore } from "async-mutex";
-const BLUEHIVE_BEARER_TOKEN =
+const BLUEHIVE_BEARER_TOKEN: string =
   process.env.NEXT_PUBLIC_BLUEHIVE_BEARER_TOKEN || "";
+
+const url: string = process.env.NEXT_PUBLIC_BLUEHIVEAI_URL || "";
+
+// console.log(`blue hive token: ${BLUEHIVE_BEARER_TOKEN}`)
+// console.log(`blue hive URL: ${url}`)
 
 // Up to 5 concurrent calls
 const BLUEHIVE_SEMAPHORE = new Semaphore(5);
@@ -12,8 +17,6 @@ export async function bluehive_generate_text(
   prompt: string,
   systemMsg: string = ""
 ): Promise<string> {
-  const url = process.env.BLUEHIVEAI_URL || "";
-
   // request payload: { prompt, systemMessage }
   const payload = {
     prompt,
