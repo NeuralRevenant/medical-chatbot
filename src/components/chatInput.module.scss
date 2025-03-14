@@ -3,23 +3,23 @@
 $bg-input: #b6e1ff;
 $border-glow: #3b82f6;
 $text-color: #f0f0f0;
+$mobile-viewport: 650px;
 
+/* The main chat form:
+   on desktop: row layout with 3 items (+, inputbox, send)
+   on mobile: 2-row grid */
 .chatInputForm {
   display: flex;
   align-items: center;
-  // justify-content: center;
   gap: 1rem;
   padding: 1rem;
   background-color: $bg-input;
-  // position: fixed;
-  // bottom: 0px;
-  // left: 300px;
   width: 90%;
-  // max-width: 80%;
-  z-index: 1000;
-  // border-top: 1px solid $border-glow;
+  // margin: 1rem auto;
   border-radius: 10px;
+  position: relative; // for error positioning
   animation: inputGlow 6s ease infinite alternate;
+  z-index: 1000;
 
   @keyframes inputGlow {
     0% {
@@ -30,32 +30,50 @@ $text-color: #f0f0f0;
     }
   }
 
-  // @media (max-width: 1200px) {
-  //   min-width: 70%;
-  //   max-width: 70%;
-  // }
-
-  // @media (max-width: 1110px) {
-  //   left: 270px;
-  //   min-width: 70%;
-  //   max-width: 70%;
-  // }
-
-  // @media (max-width: 1000px) {
-  //   min-width: 60%;
-  //   max-width: 60%;
-  // }
-
-  // @media (max-width: 768px) {
-  //   left: 10px;
-  //   min-width: 90%;
-  //   max-width: 90%;
-  // }
+  // switch to grid below 650px
+  @media (max-width: $mobile-viewport) {
+    display: grid;
+    grid-template-columns: 1fr; // single column
+    grid-template-rows: auto auto; // row1 => inputbox, row2 => buttons
+    gap: 0.75rem;
+    border-radius: 0.5rem;
+  }
 }
 
-/* Multi-line text box */
+/* The + button on desktop is left-most (part of the flex row).
+   on mobile, it goes in row 2, left side. */
+.plusButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2468d6;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+    background-color: color.scale($border-glow, $lightness: +10%);
+    box-shadow: 0 0 10px rgba($border-glow, 0.5);
+  }
+
+  @media (max-width: $mobile-viewport) {
+    // on mobile, put the + button in row2, left side
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    justify-self: start;
+  }
+}
+
+/* The input box is in the middle (on desktop).
+   on mobile, row1 => full width */
 .inputBox {
-  flex: 1;
+  flex: 1; // so it expands on desktop
   min-height: 90px;
   max-height: 110px;
   resize: vertical;
@@ -67,9 +85,15 @@ $text-color: #f0f0f0;
   font-size: 1rem;
   outline: none;
   line-height: 1.4;
+
+  @media (max-width: $mobile-viewport) {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    width: 100%;
+  }
 }
 
-/* Send button */
+// send button - right side of input box
 .sendButton {
   background-color: #2468d6;
   border: none;
@@ -93,9 +117,15 @@ $text-color: #f0f0f0;
     opacity: 0.6;
     cursor: not-allowed;
   }
+
+  @media (max-width: $mobile-viewport) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    justify-self: end;
+  }
 }
 
-/* Loading spinner inside the button */
+// Spinner for the send button while sending
 .spinner {
   width: 20px;
   height: 20px;
@@ -103,14 +133,6 @@ $text-color: #f0f0f0;
   border-top: 3px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
   animation: spin 1s linear infinite;
-}
-
-.error {
-  position: absolute;
-  bottom: -1.5rem;
-  left: 1rem;
-  color: #f87171;
-  font-size: 0.85rem;
 }
 
 @keyframes spin {
@@ -121,3 +143,16 @@ $text-color: #f0f0f0;
     transform: rotate(360deg);
   }
 }
+
+// Error message
+// .error {
+//   position: absolute;
+//   bottom: -1.5rem;
+//   left: 1rem;
+//   color: #f87171;
+//   font-size: 0.85rem;
+
+//   @media (max-width: $mobile-viewport) {
+//     bottom: -1.75rem;
+//   }
+// }

@@ -11,6 +11,8 @@ export async function fetchChatTitleFromLLM(
     `Return a short descriptive chat title (3 words or fewer) summarizing the above user message. Do NOT add any additional text or disclaimers.`;
 
   try {
+    // console.log("Prompt: " + prompt);
+    // console.log("SystemMsg: " + systemMsg);
     const result = await bluehive_generate_text(prompt, systemMsg);
     if (!result) {
       return "Untitled Chat";
